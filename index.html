@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#f3f0fa">
+<title>Lamirage · Mi tienda</title>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:only light;--ok:#2f8f5e;--warn:#b7791f;--bad:#c0392b;--blue:#3b6fb6;--r:20px}
+body.t-lila{--bg:#f3f0fa;--card:#ffffff;--ink:#241f33;--muted:#867f99;--line:#e7e2f3;--acc:#8b74c9;--accink:#fff;--soft:#efeaf9;--hero:linear-gradient(135deg,#a995dc 0%,#8b74c9 100%);--shadow:0 8px 22px rgba(90,70,150,.09);background:radial-gradient(90% 40% at 80% 0%,#e6dcf7 0%,#f3f0fa 65%) fixed}
+body.t-nude{--bg:#f6eee9;--card:#fffdfb;--ink:#2b2220;--muted:#8f7f79;--line:#eee2db;--acc:#b8935a;--accink:#fff;--soft:#f6ebe3;--hero:linear-gradient(135deg,#d9b8aa 0%,#c9a27a 100%);--shadow:0 8px 22px rgba(120,80,60,.08);background:radial-gradient(90% 40% at 80% 0%,#f3dfd6 0%,#f6eee9 65%) fixed}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:150px;-webkit-tap-highlight-color:transparent}
+header{padding:18px 16px 4px}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:46px;height:46px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-family:Italiana,serif;font-size:20px;font-weight:700;box-shadow:var(--shadow);border:1px solid var(--line)}
+.brand h1{font-size:19px;font-weight:700}
+.brand small{display:block;font-size:12.5px;color:var(--muted)}
+.themes{display:flex;gap:6px;background:var(--card);padding:6px;border-radius:30px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.themes button{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+.themes button.on{border-color:var(--ink)}
+.wrap{max-width:560px;margin:0 auto;padding:0 14px}
+h3{font-size:15px;margin:18px 0 8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px;box-shadow:var(--shadow)}
+.kpi small{font-size:12px;color:var(--muted)}
+.kpi b{display:block;font-size:20px;margin-top:3px;letter-spacing:-.3px}
+.ico{width:30px;height:30px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:14px;float:right}
+.hero{grid-column:1/-1;background:var(--hero);color:#fff;border:0;padding:16px;border-radius:var(--r);box-shadow:var(--shadow)}
+.hero small{opacity:.85;font-size:12.5px}
+.hero b{display:block;font-size:28px;margin-top:2px;letter-spacing:-.5px}
+.hero span{font-size:12.5px;opacity:.95}
+.bars{display:flex;align-items:flex-end;gap:6px;height:62px;margin-top:12px}
+.bars button{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;background:none;border:0;cursor:pointer;color:#fff;padding:0}
+.bars i{display:block;width:100%;border-radius:7px;background:rgba(255,255,255,.35);min-height:5px;transition:.2s}
+.bars button:hover i{background:rgba(255,255,255,.6)}
+.bars i.hi{background:#fff}
+.bars em{font-style:normal;font-size:10px;opacity:.85}
+.hint{font-size:11.5px;opacity:.85;margin-top:6px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 0 8px;scrollbar-width:none}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:8px 13px;font:600 13px Inter;color:var(--ink);cursor:pointer}
+.chip.on{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+.chip i{font-style:normal;opacity:.6;margin-left:4px}
+.search{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:14px;font:14px Inter;background:var(--card);color:var(--ink);margin-bottom:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.order{cursor:pointer;border-left:4px solid var(--line)}
+.o-pend{border-left-color:var(--warn)}.o-env{border-left-color:var(--blue)}.o-ent{border-left-color:var(--ok)}.o-rec{border-left-color:var(--bad)}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.meta{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+.bot{display:flex;justify-content:space-between;align-items:center;margin-top:9px}
+.price{font-weight:700;font-size:15px}
+.st{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:20px;white-space:nowrap}
+.s-pend{background:#fdf1dc;color:var(--warn)}.s-env{background:#e3ecf8;color:var(--blue)}.s-ent{background:#e1f3e9;color:var(--ok)}.s-rec{background:#fbe3e1;color:var(--bad)}
+.pay{font-size:11.5px;font-weight:600;color:var(--muted)}.pay.ok{color:var(--ok)}
+.empty{text-align:center;color:var(--muted);padding:26px 10px;font-size:14px}
+/* inventario */
+.alert{background:#fff4e0;border:1px solid #f3d9a8;color:#7a5512;border-radius:16px;padding:12px 14px;font-size:13px;line-height:1.5;margin-top:12px}
+.alert b{display:block;font-size:14px;margin-bottom:2px}
+.prod{display:flex;gap:12px;cursor:pointer}
+.ph{width:72px;height:88px;border-radius:14px;flex:0 0 72px;background-size:cover;background-position:center;display:grid;place-items:center;font-size:26px}
+.prod .info{flex:1;min-width:0}
+.prod b{font-size:15px}
+.sizes{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.sz{font-size:11.5px;font-weight:700;padding:4px 8px;border-radius:9px;background:var(--soft);color:var(--ink)}
+.sz.low{background:#fff1d6;color:var(--warn)}.sz.out{background:#f4eeee;color:#b9a8a8;text-decoration:line-through}
+.tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:9px}
+.tag.low{background:#fff1d6;color:var(--warn)}.tag.out{background:#fbe3e1;color:var(--bad)}
+/* ganancias */
+.big{font-size:30px;font-weight:700;letter-spacing:-.6px;margin-top:2px}
+.rowx{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;gap:10px}
+.rowx:last-child{border:0}.rowx span{color:var(--muted)}
+.neg{color:var(--bad)}
+.rank{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.rank:last-child{border:0}
+.rank .n{width:26px;height:26px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-weight:700;font-size:12px;color:var(--acc)}
+.rank .t{flex:1;font-size:14px}.rank .t small{display:block;color:var(--muted);font-size:12px}
+.meter{height:6px;border-radius:6px;background:var(--soft);margin-top:5px;overflow:hidden}.meter i{display:block;height:100%;background:var(--acc);border-radius:6px}
+.wow{background:var(--hero);color:#fff;border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.wow small{opacity:.85;font-size:12.5px}.wow p{font-size:15px;line-height:1.5;margin-top:6px}
+/* nav */
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:6;padding:6px 0 calc(8px + env(safe-area-inset-bottom))}
+nav .in{display:flex;max-width:560px;width:100%}
+nav button{flex:1;background:none;border:0;padding:6px 0;font:600 11.5px Inter;color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button span{font-size:20px;filter:grayscale(1);opacity:.6}
+nav button.on{color:var(--acc)}nav button.on span{filter:none;opacity:1}
+.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:78px;background:var(--acc);color:var(--accink);border:0;border-radius:30px;padding:14px 24px;font:700 15px Inter;box-shadow:0 10px 26px rgba(90,70,150,.35);cursor:pointer;z-index:5;white-space:nowrap}
+/* sheet */
+.sheet{position:fixed;inset:0;background:rgba(20,16,30,.45);display:none;align-items:flex-end;justify-content:center;z-index:9}
+.sheet.show{display:flex}
+.panel{background:var(--bg);width:100%;max-width:560px;max-height:92vh;overflow-y:auto;border-radius:24px 24px 0 0;padding:18px 16px 26px}
+.panel h2{font-size:18px;margin-bottom:4px}
+.panel .sub{font-size:13px;color:var(--muted);margin-bottom:10px}
+label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin:12px 0 5px}
+input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;font:15px Inter;background:var(--card);color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:8px}
+.item .r{display:grid;grid-template-columns:1fr 92px;gap:6px;margin-top:6px}
+.item .hd{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);font-weight:600}
+.x{border:0;background:none;color:var(--bad);font-size:18px;cursor:pointer}
+.add{border:1px dashed var(--acc);background:none;color:var(--acc);border-radius:12px;padding:10px;width:100%;font:600 13px Inter;cursor:pointer}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;padding:10px 4px;border:1px solid var(--line);background:var(--card);border-radius:12px;font:600 13px Inter;cursor:pointer;color:var(--ink)}
+.seg button.on{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+.total{display:flex;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:14px;font-size:14px}
+.total b{font-size:17px}
+.btn{display:block;width:100%;margin-top:12px;padding:14px;border:0;border-radius:14px;background:var(--acc);color:var(--accink);font:700 15px Inter;cursor:pointer;text-align:center;text-decoration:none}
+.btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn.wa{background:#25d366;color:#fff}
+.btn.red{background:var(--card);color:var(--bad);border:1px solid #f0c9c5}
+.dl{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 12px;margin-top:8px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.steps button{padding:11px 4px;border-radius:12px;border:1px solid var(--line);background:var(--card);font:600 12.5px Inter;cursor:pointer;color:var(--ink)}
+.steps button.on{color:#fff}
+.steps .b-env.on{background:var(--blue);border-color:var(--blue)}.steps .b-ent.on{background:var(--ok);border-color:var(--ok)}.steps .b-rec.on{background:var(--bad);border-color:var(--bad)}
+.note{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.45}
+.err{color:var(--bad);font-size:13px;margin-top:8px}
+.stk{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
+.stk div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center}
+.stk div b{display:block;font-size:13px;margin-bottom:6px}
+.stp{display:flex;align-items:center;justify-content:space-between}
+.stp button{width:28px;height:28px;border-radius:50%;border:0;background:var(--soft);color:var(--acc);font:700 16px Inter;cursor:pointer}
+.stp span{font-weight:700;font-size:15px}
+.upl{display:flex;gap:10px;align-items:center}
+/* rotulo */
+.label{background:#fff;color:#111;border:2px dashed #222;border-radius:14px;padding:16px;margin-top:8px;font-size:14px}
+.label .lh{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #111;padding-bottom:10px;margin-bottom:10px}
+.label .lh b{font-family:Italiana,serif;font-size:24px;letter-spacing:1px}
+.label .k{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:#666;margin-top:8px}
+.label .v{font-size:16px;font-weight:700;line-height:1.3}
+.label .ce{margin-top:12px;border:2px solid #111;border-radius:10px;padding:10px;text-align:center}
+.label .ce b{font-size:24px;display:block}
+@media print{body *{visibility:hidden}.label,.label *{visibility:visible}.label{position:fixed;left:0;top:0;width:100%}}
+</style>
+</head>
+<body class="t-lila">
+<header><div class="wrap hrow"><div class="brand"><div class="logo">MG</div><div><h1 id="hello">Hola, Lamirage ✨</h1><small id="subt">Tus pedidos y envíos de hoy</small></div></div>
+<div class="themes" id="themes"><button title="lila" style="background:#8b74c9" onclick="setTheme('lila')"></button><button title="nude" style="background:linear-gradient(135deg,#d9b8aa,#b8935a)" onclick="setTheme('nude')"></button></div></div></header>
+<div class="wrap" id="app"></div>
+<button class="fab" id="fab"></button>
+<nav><div class="in">
+<button id="nv-ped" onclick="go('ped')"><span>📦</span>Pedidos</button>
+<button id="nv-inv" onclick="go('inv')"><span>👗</span>Inventario</button>
+<button id="nv-gan" onclick="go('gan')"><span>💰</span>Ganancias</button>
+</div></nav>
+<div class="sheet" id="sheet" onclick="if(event.target===this)closeSheet()"><div class="panel" id="panel"></div></div>
+
+<script>
+const KEY='lamirage_v3';
+const CARRIERS=['Domiciliario local','Interrapidísimo','Servientrega','Coordinadora','Envía','Deprisa','TCC'];
+const ST={pend:'Por enviar',env:'Enviado',ent:'Entregado',rec:'Rechazado'};
+const DL=['D','L','M','M','J','V','S'];
+const LOW=1;
+const $=s=>document.querySelector(s);
+const money=n=>'$'+Math.round(n||0).toLocaleString('es-CO');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fdate=ts=>new Date(ts).toLocaleDateString('es-CO',{day:'numeric',month:'short'});
+const sumItems=o=>o.items.reduce((t,i)=>t+(+i.p||0),0);
+const totalOf=o=>sumItems(o)+(+o.envio||0);
+const first=n=>String(n).split(' ')[0];
+
+/* ---------- datos ---------- */
+let mem=null;
+function load(){try{const r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}return mem}
+function save(){mem=D;try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}}
+const GR=['linear-gradient(160deg,#2b2b2b,#555)','linear-gradient(160deg,#f5f1ea,#d8cfc2)','linear-gradient(160deg,#d9c38a,#b8935a)','linear-gradient(160deg,#5b7fd1,#2f4f9e)','linear-gradient(160deg,#ff9ac1,#e85d93)','linear-gradient(160deg,#ff9a5a,#f26b21)','linear-gradient(160deg,#9fb9d9,#6f8fb8)','linear-gradient(160deg,#e9e3f5,#c9bde6)'];
+function seed(){
+  const P=[
+   {id:1,n:'Body negro tiras perla',p:85000,c:38000,g:0,e:'🖤',s:{S:1,M:5,L:4}},
+   {id:2,n:'Vestido blanco largo',p:140000,c:65000,g:1,e:'🤍',s:{S:3,M:4,L:0}},
+   {id:3,n:'Top halter dorado',p:65000,c:28000,g:2,e:'✨',s:{S:6,M:5,L:3}},
+   {id:4,n:'Top drapeado azul',p:60000,c:25000,g:3,e:'💙',s:{S:4,M:3,L:1}},
+   {id:5,n:'Body rosado',p:75000,c:32000,g:4,e:'🩷',s:{S:5,M:4,L:3}},
+   {id:6,n:'Body naranja escote V',p:75000,c:32000,g:5,e:'🧡',s:{S:3,M:4,L:2}},
+   {id:7,n:'Jean tiro alto',p:95000,c:45000,g:6,e:'👖',s:{'6':3,'8':5,'10':4,'12':2}},
+   {id:8,n:'Falda brillante',p:90000,c:40000,g:7,e:'💜',s:{S:4,M:3,L:2}}];
+  const names=['Valentina Ríos','Daniela Pérez','Karen Gómez','Sofía Martínez','Andrea López','Laura Herrera','Mariana Castro','Camila Torres','Isabella Díaz','Natalia Ruiz','Paula Mendoza','Juliana Vargas'];
+  const cities=[['Barranquilla','Domiciliario local',8000],['Soledad','Domiciliario local',7000],['Medellín','Interrapidísimo',15000],['Bogotá','Coordinadora',18000],['Cartagena','Servientrega',14000],['Santa Marta','Envía',14000]];
+  const O=[];let id=1;const now=Date.now();
+  // pedidos viejos (últimos 30 días) ya cerrados
+  const pat=[[0,'M',0],[2,'S',0],[3,'M',2],[0,'L',1],[4,'S',0],[6,'8',2],[2,'M',3],[0,'M',0],[7,'S',1],[1,'M',4],[0,'S',5],[4,'M',0],[3,'S',0],[0,'M',2],[5,'M',1],[6,'10',3],[2,'L',0],[0,'L',4]];
+  pat.forEach(([pi,t,ci],k)=>{const pr=P[pi],[city,car,env]=cities[ci];const day=29-Math.floor(k*1.45);
+    const rec=k===5||k===12;O.push({id:id++,name:names[(k*5)%names.length],phone:'30'+(10000000+k*7919),city,addr:'Dirección de ejemplo',items:[{pid:pr.id,n:pr.n,t,p:pr.p,c:pr.c}],envio:env,pago:k%3===0?'tr':'ce',carrier:car,guia:car==='Domiciliario local'?'':String(7001200000+k*37),estado:rec?'rec':'ent',cobrado:!rec,ts:now-day*864e5-k*3600e3})});
+  // pedidos recientes
+  const R=[
+   ['Valentina Ríos','3001112233','Barranquilla','Cra 46 #80-12, El Prado',[[1,'S']],8000,'ce','Domiciliario local','','ent',false,1],
+   ['Daniela Pérez','3012223344','Medellín','Cl 10 #43-20, El Poblado',[[2,'M'],[7,'8']],15000,'tr','Interrapidísimo','700128834512','env',true,3],
+   ['Karen Gómez','3023334455','Soledad','Cl 30 #22-05, Villa Katanga',[[3,'S']],7000,'ce','Domiciliario local','','rec',false,3],
+   ['Sofía Martínez','3044445566','Cartagena','Barrio Manga, Av. 3 #25-40',[[4,'M']],14000,'ce','Servientrega','2214567890','env',false,2],
+   ['Laura Herrera','3066667788','Bogotá','Cra 15 #93-60, Chicó',[[5,'M'],[8,'S']],18000,'tr','Coordinadora','','pend',true,0],
+   ['Mariana Castro','3077778899','Barranquilla','Cl 72 #43-15, Boston',[[6,'L']],8000,'ce','Domiciliario local','','pend',false,0]];
+  R.forEach(([name,phone,city,addr,its,envio,pago,carrier,guia,estado,cob,day])=>O.push({id:id++,name,phone,city,addr,items:its.map(([pid,t])=>{const pr=P.find(x=>x.id===pid);return{pid,n:pr.n,t,p:pr.p,c:pr.c}}),envio,pago,carrier,guia,estado,cobrado:cob,ts:now-day*864e5-id*1800e3}));
+  return{P,O,nid:1000}}
+let D=load(); if(!D||!D.P){D=seed();save()}
+
+/* ---------- navegación ---------- */
+let tab='ped',filt='all',q='';
+function go(t){tab=t;['ped','inv','gan'].forEach(k=>$('#nv-'+k).classList.toggle('on',k===t));render();window.scrollTo(0,0)}
+function render(){
+  const fab=$('#fab');
+  if(tab==='ped'){$('#subt').textContent='Tus pedidos y envíos';fab.style.display='';fab.textContent='+ Nuevo pedido';fab.onclick=openNew;renderPed()}
+  else if(tab==='inv'){$('#subt').textContent='Tu inventario por talla';fab.style.display='';fab.textContent='+ Nueva prenda';fab.onclick=()=>openProd(null);renderInv()}
+  else{$('#subt').textContent='Cuánto vendes y cuánto ganas';fab.style.display='none';renderGan()}
+}
+
+/* ---------- pedidos ---------- */
+function days7(){const out=[];for(let i=6;i>=0;i--){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-i);const s=d.getTime(),e=s+864e5;const os=D.O.filter(o=>o.ts>=s&&o.ts<e);out.push({s,l:DL[d.getDay()],os,v:os.filter(o=>o.estado!=='rec').reduce((t,o)=>t+totalOf(o),0)})}return out}
+function renderPed(){
+  const O=D.O;
+  const porCobrar=O.filter(o=>o.pago==='ce'&&!o.cobrado&&o.estado!=='rec').reduce((t,o)=>t+totalOf(o),0);
+  const entSin=O.filter(o=>o.pago==='ce'&&!o.cobrado&&o.estado==='ent').length;
+  const counts={all:O.length};Object.keys(ST).forEach(k=>counts[k]=O.filter(o=>o.estado===k).length);
+  counts.cobrar=O.filter(o=>o.pago==='ce'&&!o.cobrado&&o.estado!=='rec').length;
+  const ds=days7(),mx=Math.max(...ds.map(d=>d.v),1),hi=ds.reduce((a,d,i)=>d.v>ds[a].v?i:a,0);
+  const week=ds.reduce((t,d)=>t+d.v,0);
+  const F=[['all','Todos'],['pend','Por enviar'],['env','Enviados'],['ent','Entregados'],['rec','Rechazados'],['cobrar','Por cobrar']];
+  $('#app').innerHTML=`<div class="grid2" style="padding-top:12px">
+   <div class="hero"><small>Plata por cobrar (contra entrega)</small><b>${money(porCobrar)}</b>
+   <span>${entSin?`⚠️ ${entSin} entregado${entSin>1?'s':''} y todavía sin recibir la plata`:'Todo lo entregado ya está cobrado ✓'}</span>
+   <div class="bars">${ds.map((d,i)=>`<button onclick="openDay(${d.s})"><i class="${i===hi&&d.v?'hi':''}" style="height:${Math.max(7,d.v/mx*100)}%"></i><em>${d.l}</em></button>`).join('')}</div>
+   <div class="hint">Esta semana: ${money(week)} · toca una barra para ver ese día</div></div>
+   <div class="kpi"><span class="ico">📦</span><small>Por despachar</small><b>${counts.pend}</b></div>
+   <div class="kpi"><span class="ico">🚚</span><small>En camino</small><b>${counts.env}</b></div></div>
+  <div class="chips">${F.map(([k,l])=>`<button class="chip ${filt===k?'on':''}" onclick="filt='${k}';renderPed()">${l}<i>${counts[k]}</i></button>`).join('')}</div>
+  <input class="search" id="srch" placeholder="🔍 Buscar clienta, ciudad, prenda o guía" value="${esc(q)}" oninput="q=this.value;drawList()">
+  <div id="list"></div>`;
+  drawList();
+}
+function filtered(){let l=D.O.slice().sort((a,b)=>b.ts-a.ts);
+  if(filt==='cobrar')l=l.filter(o=>o.pago==='ce'&&!o.cobrado&&o.estado!=='rec');else if(filt!=='all')l=l.filter(o=>o.estado===filt);
+  if(q){const k=q.toLowerCase();l=l.filter(o=>(o.name+o.city+o.guia+o.phone+o.items.map(i=>i.n).join(' ')).toLowerCase().includes(k))}return l}
+function orderCard(o){return `<div class="card order o-${o.estado}" onclick="openDetail(${o.id})">
+ <div class="top"><div><b>${esc(o.name)}</b><div class="meta">${o.items.map(i=>esc(i.n)+' · '+esc(i.t)).join('<br>')}</div></div><span class="st s-${o.estado}">${ST[o.estado]}</span></div>
+ <div class="meta">📍 ${esc(o.city)} · ${esc(o.carrier)}${o.guia?' · Guía '+esc(o.guia):''} · ${fdate(o.ts)}</div>
+ <div class="bot"><span class="price">${money(totalOf(o))}</span><span class="pay ${o.cobrado?'ok':''}">${o.pago==='ce'?(o.cobrado?'✓ Contra entrega cobrado':(o.estado==='rec'?'No se cobró':'💵 Por cobrar')):'✓ Pagó por transferencia'}</span></div></div>`}
+function drawList(){const l=filtered().slice(0,40);$('#list').innerHTML=l.length?l.map(orderCard).join(''):'<div class="empty">No hay pedidos aquí</div>'}
+function openDay(s){const os=D.O.filter(o=>o.ts>=s&&o.ts<s+864e5).sort((a,b)=>b.ts-a.ts);const v=os.filter(o=>o.estado!=='rec').reduce((t,o)=>t+totalOf(o),0);
+  let d=new Date(s).toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long'});d=d[0].toUpperCase()+d.slice(1);
+  $('#panel').innerHTML=`<h2>${d}</h2><p class="sub">${os.length} pedido${os.length!==1?'s':''} · ${money(v)} en ventas</p>${os.length?os.map(orderCard).join(''):'<div class="empty">Ese día no hubo pedidos</div>'}<button class="btn ghost" onclick="closeSheet()">Cerrar</button>`;showSheet()}
+
+/* nuevo pedido */
+let draft;
+function openNew(){draft={items:[{pid:'',t:'',n:'',p:''}],pago:'ce',carrier:CARRIERS[0]};drawNew();showSheet()}
+function sizeOpts(it){const pr=D.P.find(p=>p.id==it.pid);if(!pr)return '';return Object.entries(pr.s).map(([t,n])=>`<option value="${esc(t)}" ${it.t===t?'selected':''} ${n<=0?'disabled':''}>${esc(t)} ${n<=0?'(agotada)':'('+n+')'}</option>`).join('')}
+function drawNew(){
+  $('#panel').innerHTML=`<h2>Nuevo pedido</h2><p class="sub">Anótalo apenas cierres la venta por WhatsApp</p>
+  <label>Clienta</label><input id="f-name" placeholder="Nombre" value="${esc(draft.name)}" oninput="draft.name=this.value">
+  <div class="row2"><div><label>WhatsApp</label><input inputmode="tel" placeholder="300 123 4567" value="${esc(draft.phone)}" oninput="draft.phone=this.value"></div>
+  <div><label>Ciudad</label><input placeholder="Barranquilla" value="${esc(draft.city)}" oninput="draft.city=this.value"></div></div>
+  <label>Dirección y barrio</label><input placeholder="Cl 84 #51B-30, Riomar" value="${esc(draft.addr)}" oninput="draft.addr=this.value">
+  <label>Prendas</label>
+  ${draft.items.map((it,i)=>`<div class="item"><div class="hd">Prenda ${i+1}<button class="x" onclick="draft.items.splice(${i},1);if(!draft.items.length)draft.items.push({pid:'',t:'',n:'',p:''});drawNew()">×</button></div>
+   <select onchange="pickP(${i},this.value)"><option value="">Escoge del inventario…</option>${D.P.map(p=>`<option value="${p.id}" ${it.pid==p.id?'selected':''}>${esc(p.n)} · ${money(p.p)}</option>`).join('')}<option value="otra" ${it.pid==='otra'?'selected':''}>Otra prenda (escribirla)</option></select>
+   ${it.pid==='otra'?`<input style="margin-top:6px" placeholder="Nombre de la prenda" value="${esc(it.n)}" oninput="draft.items[${i}].n=this.value">`:''}
+   <div class="r">${it.pid&&it.pid!=='otra'?`<select onchange="draft.items[${i}].t=this.value"><option value="">Talla…</option>${sizeOpts(it)}</select>`:`<input placeholder="Talla" value="${esc(it.t)}" oninput="draft.items[${i}].t=this.value">`}
+   <input inputmode="numeric" placeholder="Precio" value="${esc(it.p)}" oninput="draft.items[${i}].p=this.value.replace(/\\D/g,'');updTot()"></div></div>`).join('')}
+  <button class="add" onclick="draft.items.push({pid:'',t:'',n:'',p:''});drawNew()">+ Agregar otra prenda</button>
+  <div class="row2"><div><label>Valor del envío</label><input inputmode="numeric" placeholder="8000" value="${esc(draft.envio)}" oninput="draft.envio=this.value.replace(/\\D/g,'');updTot()"></div>
+  <div><label>Transportadora</label><select onchange="draft.carrier=this.value">${CARRIERS.map(c=>`<option ${draft.carrier===c?'selected':''}>${c}</option>`).join('')}</select></div></div>
+  <label>¿Cómo paga?</label><div class="seg"><button class="${draft.pago==='ce'?'on':''}" onclick="draft.pago='ce';drawNew()">💵 Contra entrega</button><button class="${draft.pago==='tr'?'on':''}" onclick="draft.pago='tr';drawNew()">✓ Ya transfirió</button></div>
+  <div class="total"><span>Total a cobrar</span><b id="tot"></b></div>
+  <div id="ferr" class="err"></div>
+  <button class="btn" onclick="saveNew()">Guardar pedido</button><button class="btn ghost" onclick="closeSheet()">Cancelar</button>`;updTot()}
+function pickP(i,v){const it=draft.items[i];it.pid=v==='otra'?'otra':(v?+v:'');it.t='';const pr=D.P.find(p=>p.id==it.pid);if(pr){it.n=pr.n;it.p=String(pr.p)}else if(v!=='otra'){it.n='';it.p=''}else{it.n='';}drawNew()}
+function updTot(){const t=draft.items.reduce((a,i)=>a+(+i.p||0),0)+(+draft.envio||0);$('#tot').textContent=money(t)}
+function saveNew(){
+  const err=m=>$('#ferr').textContent=m;
+  if(!draft.name||!draft.name.trim())return err('Falta el nombre de la clienta');
+  const items=[];for(const it of draft.items){if(!it.pid&&!it.n)continue;
+    if(it.pid&&it.pid!=='otra'){const pr=D.P.find(p=>p.id==it.pid);if(!it.t)return err('Escoge la talla de '+pr.n);if((pr.s[it.t]||0)<=0)return err(pr.n+' talla '+it.t+' está agotada');items.push({pid:pr.id,n:pr.n,t:it.t,p:+it.p||pr.p,c:pr.c})}
+    else{if(!it.n||!it.n.trim())return err('Escribe el nombre de la prenda');items.push({pid:null,n:it.n.trim(),t:it.t||'',p:+it.p||0,c:0})}}
+  if(!items.length)return err('Agrega al menos una prenda');
+  items.forEach(i=>{if(i.pid){const pr=D.P.find(p=>p.id===i.pid);pr.s[i.t]--}});
+  D.O.push({id:D.nid++,name:draft.name.trim(),phone:(draft.phone||'').trim(),city:(draft.city||'').trim()||'Barranquilla',addr:(draft.addr||'').trim(),items,envio:+draft.envio||0,pago:draft.pago,carrier:draft.carrier,guia:'',estado:'pend',cobrado:draft.pago==='tr',ts:Date.now()});
+  save();closeSheet();filt='all';q='';render();
+  const low=items.filter(i=>i.pid).map(i=>{const pr=D.P.find(p=>p.id===i.pid);return pr.s[i.t]<=LOW?`${pr.n} talla ${i.t}: ${pr.s[i.t]<=0?'¡se agotó!':'queda '+pr.s[i.t]}`:null}).filter(Boolean);
+  if(low.length)toast('⚠️ Se te está acabando:<br>'+low.join('<br>'));}
+
+/* detalle */
+function openDetail(id){drawDetail(id);showSheet()}
+function drawDetail(id){
+  const o=D.O.find(x=>x.id===id);if(!o)return closeSheet();
+  const num=o.phone.replace(/\D/g,'').replace(/^57/,'');
+  const wa=num?`https://wa.me/57${num}?text=${encodeURIComponent(msgFor(o))}`:'';
+  $('#panel').innerHTML=`<h2>${esc(o.name)}</h2><p class="sub">Pedido del ${fdate(o.ts)} · <span class="st s-${o.estado}">${ST[o.estado]}</span></p>
+  <div class="dl">${o.items.map(i=>`<div class="rowx"><span>${esc(i.n)} · ${esc(i.t)}</span><b>${money(i.p)}</b></div>`).join('')}
+  <div class="rowx"><span>Envío</span><b>${money(o.envio)}</b></div><div class="rowx"><span>Total</span><b>${money(totalOf(o))}</b></div></div>
+  <div class="dl"><div class="rowx"><span>📱 WhatsApp</span><b>${esc(o.phone)||'—'}</b></div><div class="rowx"><span>📍 Dirección</span><b style="text-align:right">${esc(o.addr)||'—'}, ${esc(o.city)}</b></div><div class="rowx"><span>🚚 Transportadora</span><b>${esc(o.carrier)}</b></div></div>
+  <label>Número de guía</label><input placeholder="Escríbelo cuando despaches" value="${esc(o.guia)}" onchange="setG(${o.id},this.value)">
+  <label>Estado del envío</label>
+  <div class="steps"><button class="b-env ${o.estado==='env'?'on':''}" onclick="setS(${o.id},'env')">🚚 Enviado</button><button class="b-ent ${o.estado==='ent'?'on':''}" onclick="setS(${o.id},'ent')">✓ Entregado</button><button class="b-rec ${o.estado==='rec'?'on':''}" onclick="setS(${o.id},'rec')">✕ Rechazado</button></div>
+  ${o.estado==='rec'?'<p class="note">↩️ Las prendas volvieron a tu inventario.</p>':''}
+  ${o.pago==='ce'&&o.estado!=='rec'?`<button class="btn ${o.cobrado?'ghost':''}" onclick="setC(${o.id})">${o.cobrado?'✓ Plata recibida · tocar para deshacer':'💵 Ya me llegó la plata del contra entrega'}</button>`:''}
+  ${o.pago==='tr'?'<p class="note">✓ Esta clienta pagó por transferencia antes del envío.</p>':''}
+  <button class="btn ghost" onclick="openLabel(${o.id})">🏷️ Ver rótulo del paquete</button>
+  ${wa?`<a class="btn wa" href="${wa}" target="_blank" rel="noopener">💬 Avisarle a la clienta por WhatsApp</a><p class="note">El mensaje cambia según el estado: confirmación, guía de envío o agradecimiento.</p>`:''}
+  <button class="btn red" onclick="delO(${o.id},this)">Eliminar pedido</button><button class="btn ghost" onclick="closeSheet()">Cerrar</button>`}
+function msgFor(o){const items=o.items.map(i=>`• ${i.n} (talla ${i.t})`).join('\n'),n=first(o.name);
+  if(o.estado==='pend')return `Holaa ${n} ✨ Confirmamos tu pedido en Lamirage:\n${items}\nTotal: ${money(totalOf(o))}${o.pago==='ce'?' (pagas contra entrega)':''}\nTe avisamos apenas lo despachemos 🤍`;
+  if(o.estado==='env')return `Holaa ${n} ✨ Tu pedido de Lamirage ya va en camino 🚚\nTransportadora: ${o.carrier}${o.guia?`\nGuía: ${o.guia}`:''}${o.pago==='ce'?`\nRecuerda tener listo ${money(totalOf(o))} para pagar al recibir.`:''}`;
+  if(o.estado==='ent')return `Holaa ${n} 🤍 Gracias por comprar en Lamirage. ¡Esperamos que brilles con tu prenda! ✨ Si nos mandas una foto, te compartimos en historias.`;
+  return `Holaa ${n}, vimos que no se pudo entregar tu pedido de Lamirage. ¿Pasó algo? Cuéntanos para ayudarte 🤍`}
+function restock(o,dir){o.items.forEach(i=>{if(i.pid){const pr=D.P.find(p=>p.id===i.pid);if(pr&&i.t in pr.s)pr.s[i.t]+=dir}})}
+function setS(id,s){const o=D.O.find(x=>x.id===id);const was=o.estado,now=was===s?'pend':s;
+  if(was!=='rec'&&now==='rec')restock(o,1);if(was==='rec'&&now!=='rec')restock(o,-1);
+  o.estado=now;save();render();drawDetail(id)}
+function setC(id){const o=D.O.find(x=>x.id===id);o.cobrado=!o.cobrado;save();render();drawDetail(id)}
+function setG(id,v){const o=D.O.find(x=>x.id===id);o.guia=v.trim();if(o.guia&&o.estado==='pend')o.estado='env';save();render();drawDetail(id)}
+function delO(id,el){if(el.dataset.c!=='1'){el.dataset.c='1';el.textContent='¿Seguro? Toca otra vez (las prendas vuelven al inventario)';return}
+  const o=D.O.find(x=>x.id===id);if(o.estado!=='rec')restock(o,1);D.O=D.O.filter(x=>x.id!==id);save();closeSheet();render()}
+function openLabel(id){const o=D.O.find(x=>x.id===id);
+  $('#panel').innerHTML=`<h2>Rótulo del paquete</h2><p class="sub">Tómale captura y mándasela al mensajero, o imprímela</p>
+  <div class="label"><div class="lh"><b>LAMIRAGE</b><span style="font-size:12px">${esc(o.carrier)}${o.guia?'<br>Guía '+esc(o.guia):''}</span></div>
+  <div class="k">Destinatario</div><div class="v">${esc(o.name)}</div>
+  <div class="k">Dirección</div><div class="v">${esc(o.addr)||'—'}</div>
+  <div class="k">Ciudad</div><div class="v">${esc(o.city)}</div>
+  <div class="k">Teléfono</div><div class="v">${esc(o.phone)||'—'}</div>
+  <div class="k">Contenido</div><div class="v" style="font-size:14px;font-weight:600">${o.items.map(i=>esc(i.n)+' ('+esc(i.t)+')').join(', ')}</div>
+  ${o.pago==='ce'?`<div class="ce">COBRAR CONTRA ENTREGA<b>${money(totalOf(o))}</b></div>`:`<div class="ce">PAGADO ✓<b style="font-size:16px">No cobrar</b></div>`}
+  <div class="k" style="text-align:center;margin-top:12px">Remite: Lamirage · Barranquilla</div></div>
+  <button class="btn" onclick="try{window.print()}catch(e){}">🖨️ Imprimir</button>
+  <button class="btn ghost" onclick="drawDetail(${o.id})">← Volver al pedido</button>`}
+
+/* ---------- inventario ---------- */
+function stockTotal(p){return Object.values(p.s).reduce((a,b)=>a+b,0)}
+function phStyle(p){return p.img?`background-image:url(${p.img})`:`background:${GR[p.g%GR.length]}`}
+function renderInv(){
+  const low=[],out=[];D.P.forEach(p=>Object.entries(p.s).forEach(([t,n])=>{if(n<=0)out.push(`${p.n} ${t}`);else if(n<=LOW)low.push(`${p.n} talla ${t} (queda ${n})`)}));
+  const units=D.P.reduce((a,p)=>a+stockTotal(p),0),val=D.P.reduce((a,p)=>a+stockTotal(p)*p.p,0),cost=D.P.reduce((a,p)=>a+stockTotal(p)*p.c,0);
+  $('#app').innerHTML=`<div class="grid2" style="padding-top:12px">
+   <div class="hero"><small>Tu inventario vale</small><b>${money(val)}</b><span>${units} prendas en total · te costaron ${money(cost)}</span></div></div>
+   ${low.length||out.length?`<div class="alert"><b>⚠️ Se te está acabando</b>${low.slice(0,5).join('<br>')}${out.length?`<br><span style="opacity:.8">Agotado: ${out.slice(0,5).join(', ')}</span>`:''}</div>`:''}
+   <h3>Tus prendas</h3>
+   ${D.P.map(p=>{const tot=stockTotal(p),lowAny=Object.values(p.s).some(n=>n>0&&n<=LOW);
+     return `<div class="card prod" onclick="openProd(${p.id})"><div class="ph" style="${phStyle(p)}">${p.img?'':p.e||'👗'}</div><div class="info">
+     <div class="top"><b>${esc(p.n)}</b>${tot===0?'<span class="tag out">Agotada</span>':lowAny?'<span class="tag low">Poco stock</span>':''}</div>
+     <div class="meta">${money(p.p)} · te cuesta ${money(p.c)} · ganas ${money(p.p-p.c)}</div>
+     <div class="sizes">${Object.entries(p.s).map(([t,n])=>`<span class="sz ${n<=0?'out':n<=LOW?'low':''}">${esc(t)}: ${n}</span>`).join('')}</div></div></div>`}).join('')}`;
+}
+let pd;
+function openProd(id){const p=D.P.find(x=>x.id===id);pd=p?JSON.parse(JSON.stringify(p)):{id:null,n:'',p:'',c:'',g:Math.floor(Math.random()*8),e:'👗',s:{S:0,M:0,L:0}};drawProd();showSheet()}
+function drawProd(){
+  $('#panel').innerHTML=`<h2>${pd.id?'Editar prenda':'Nueva prenda'}</h2><p class="sub">${pd.id?'Ajusta las unidades cuando te llegue mercancía':'Agrégala para que aparezca al anotar pedidos'}</p>
+  <div class="upl"><div class="ph" style="${phStyle(pd)}">${pd.img?'':pd.e||'👗'}</div><div style="flex:1"><label style="margin-top:0">Foto (opcional)</label><input type="file" accept="image/*" onchange="photo(this)"></div></div>
+  <label>Nombre</label><input value="${esc(pd.n)}" placeholder="Ej: Body negro tiras perla" oninput="pd.n=this.value">
+  <div class="row2"><div><label>Precio de venta</label><input inputmode="numeric" value="${esc(pd.p)}" placeholder="85000" oninput="pd.p=this.value.replace(/\\D/g,'')"></div>
+  <div><label>Lo que te costó</label><input inputmode="numeric" value="${esc(pd.c)}" placeholder="38000" oninput="pd.c=this.value.replace(/\\D/g,'')"></div></div>
+  <label>Unidades por talla</label>
+  <div class="stk">${Object.entries(pd.s).map(([t,n])=>`<div><b>${esc(t)}</b><div class="stp"><button onclick="stk('${esc(t)}',-1)">−</button><span>${n}</span><button onclick="stk('${esc(t)}',1)">+</button></div></div>`).join('')}</div>
+  <div class="row2" style="margin-top:8px"><input id="newsz" placeholder="Otra talla (XL, 10…)"><button class="add" onclick="addSz()">+ Agregar talla</button></div>
+  <div id="perr" class="err"></div>
+  <button class="btn" onclick="saveProd()">Guardar prenda</button>
+  ${pd.id?`<button class="btn red" onclick="delP(this)">Eliminar prenda</button>`:''}
+  <button class="btn ghost" onclick="closeSheet()">Cancelar</button>`}
+function stk(t,d){pd.s[t]=Math.max(0,(pd.s[t]||0)+d);drawProd()}
+function addSz(){const v=$('#newsz').value.trim().toUpperCase();if(v&&!(v in pd.s)){pd.s[v]=0;drawProd()}}
+function photo(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas'),W=240,H=Math.round(W*im.height/im.width);c.width=W;c.height=H;c.getContext('2d').drawImage(im,0,0,W,H);pd.img=c.toDataURL('image/jpeg',.7);drawProd()};im.src=r.result};r.readAsDataURL(f)}
+function saveProd(){if(!pd.n.trim())return $('#perr').textContent='Ponle un nombre a la prenda';if(!(+pd.p))return $('#perr').textContent='Falta el precio de venta';
+  pd.p=+pd.p;pd.c=+pd.c||0;pd.n=pd.n.trim();
+  if(pd.id){const i=D.P.findIndex(x=>x.id===pd.id);D.P[i]=pd}else{pd.id=D.nid++;D.P.push(pd)}
+  try{save()}catch(e){}closeSheet();render()}
+function delP(el){if(el.dataset.c!=='1'){el.dataset.c='1';el.textContent='¿Seguro? Toca otra vez para eliminar';return}D.P=D.P.filter(x=>x.id!==pd.id);save();closeSheet();render()}
+
+/* ---------- ganancias ---------- */
+let per='mes';
+function renderGan(){
+  const now=Date.now(),from=per==='7'?now-7*864e5:per==='mes'?now-30*864e5:0;
+  const os=D.O.filter(o=>o.ts>=from);
+  const ent=os.filter(o=>o.estado==='ent'),rec=os.filter(o=>o.estado==='rec');
+  const ventas=ent.reduce((t,o)=>t+sumItems(o),0);
+  const costo=ent.reduce((t,o)=>t+o.items.reduce((a,i)=>a+(+i.c||0),0),0);
+  const perdEnv=rec.reduce((t,o)=>t+(+o.envio||0),0);
+  const gan=ventas-costo-perdEnv;
+  const margen=ventas?Math.round(gan/ventas*100):0;
+  const pc={},cc={};
+  os.filter(o=>o.estado!=='rec').forEach(o=>{o.items.forEach(i=>{pc[i.n]=pc[i.n]||{u:0,v:0};pc[i.n].u++;pc[i.n].v+=+i.p||0});cc[o.name]=cc[o.name]||{n:0,v:0,c:o.city};cc[o.name].n++;cc[o.name].v+=totalOf(o)});
+  const tp=Object.entries(pc).sort((a,b)=>b[1].u-a[1].u||b[1].v-a[1].v).slice(0,5),mxp=tp.length?tp[0][1].u:1;
+  const tc=Object.entries(cc).sort((a,b)=>b[1].v-a[1].v).slice(0,5);
+  const cityC={};os.filter(o=>o.estado!=='rec').forEach(o=>cityC[o.city]=(cityC[o.city]||0)+1);const topCity=Object.entries(cityC).sort((a,b)=>b[1]-a[1])[0];
+  const lbl={7:'esta semana',mes:'este mes',todo:'en total'}[per];
+  $('#app').innerHTML=`<div class="chips">${[['7','7 días'],['mes','Este mes'],['todo','Todo']].map(([k,l])=>`<button class="chip ${per===k?'on':''}" onclick="per='${k}';renderGan()">${l}</button>`).join('')}</div>
+  <div class="wow"><small>Resumen ${lbl}</small><p>Ganaste <b style="font-size:22px">${money(gan)}</b> de verdad${tp.length?`, y lo que más se vende es tu <b>${esc(tp[0][0])}</b>`:''}${topCity?`. Donde más te compran: <b>${esc(topCity[0])}</b>`:''} ✨</p></div>
+  <div class="grid2" style="margin-top:10px">
+   <div class="kpi"><span class="ico">🛍️</span><small>Vendiste</small><b>${money(ventas)}</b><small>${ent.length} pedidos entregados</small></div>
+   <div class="kpi"><span class="ico">📈</span><small>Margen</small><b>${margen}%</b><small>de cada venta es ganancia</small></div></div>
+  <h3>Cómo se calcula tu ganancia</h3>
+  <div class="card" style="padding:4px 14px"><div class="rowx"><span>Ventas (sin envíos)</span><b>${money(ventas)}</b></div>
+  <div class="rowx"><span>− Lo que te costaron las prendas</span><b class="neg">−${money(costo)}</b></div>
+  <div class="rowx"><span>− Envíos perdidos (${rec.length} rechazado${rec.length!==1?'s':''})</span><b class="neg">−${money(perdEnv)}</b></div>
+  <div class="rowx"><span><b style="color:var(--ink)">Ganancia real</b></span><b style="color:var(--ok);font-size:17px">${money(gan)}</b></div></div>
+  <h3>👑 Lo que más se vende</h3>
+  <div class="card" style="padding:4px 14px">${tp.length?tp.map(([n,v],i)=>`<div class="rank"><div class="n">${i+1}</div><div class="t">${esc(n)}<small>${v.u} vendida${v.u!==1?'s':''} · ${money(v.v)}</small><div class="meter"><i style="width:${v.u/mxp*100}%"></i></div></div></div>`).join(''):'<div class="empty">Sin ventas en este periodo</div>'}</div>
+  <h3>💜 Tus mejores clientas</h3>
+  <div class="card" style="padding:4px 14px">${tc.length?tc.map(([n,v],i)=>`<div class="rank"><div class="n">${i+1}</div><div class="t">${esc(n)}<small>${v.n} compra${v.n!==1?'s':''} · ${esc(v.c)}</small></div><b>${money(v.v)}</b></div>`).join(''):'<div class="empty">Sin clientas en este periodo</div>'}</div>
+  <p class="note" style="text-align:center;margin-top:14px">La ganancia cuenta solo pedidos entregados. Para que sea exacta, pon en Inventario lo que te costó cada prenda.</p>`;
+}
+
+/* ---------- utilidades ---------- */
+function showSheet(){$('#sheet').classList.add('show');$('#panel').scrollTop=0}
+function closeSheet(){$('#sheet').classList.remove('show')}
+function toast(h){const t=document.createElement('div');t.innerHTML=h;t.style.cssText='position:fixed;left:50%;transform:translateX(-50%);top:16px;background:#fff4e0;color:#7a5512;border:1px solid #f3d9a8;padding:12px 16px;border-radius:14px;font:600 13px Inter;z-index:20;box-shadow:0 8px 20px rgba(0,0,0,.12);max-width:90%;line-height:1.5';document.body.appendChild(t);setTimeout(()=>t.remove(),4200)}
+function setTheme(t){document.body.className='t-'+t;try{localStorage.setItem(KEY+'_theme',t)}catch(e){}
+  document.querySelectorAll('#themes button').forEach(b=>b.classList.toggle('on',b.title===t));
+  document.querySelector('meta[name=theme-color]').content=t==='nude'?'#f6eee9':'#f3f0fa'}
+(function(){let t='lila';try{t=localStorage.getItem(KEY+'_theme')||t}catch(e){}if(!['lila','nude'].includes(t))t='lila';setTheme(t)})();
+go('ped');
+</script>
+</body>
+</html>
